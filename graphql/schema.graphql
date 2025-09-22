@@ -1,0 +1,19 @@
+
+type Todo {
+    id: ID!
+    title: String!
+    completed: Boolean!
+    created_at: String!
+    updated_at: String!
+}
+
+type Query {
+    todos: [Todo!]! @all
+    todo(id: ID! @eq): Todo @find
+}
+
+type Mutation {
+    createTodo(title: String!): Todo! @create(model: "App\\Models\\Todo")
+    updateTodo(id: ID!, title: String, completed: Boolean): Todo @update(model: "App\\Models\\Todo")
+    deleteTodo(id: ID!): Boolean @field(resolver: "App\\GraphQL\\Mutations\\DeleteTodo")
+}
